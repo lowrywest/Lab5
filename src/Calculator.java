@@ -35,6 +35,14 @@ public class Calculator
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
         int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
+        	if(tokens[0].equalsIgnoreCase("negate"))
+        	{
+        		return -a;
+        	}
+        	else
+        	{
+        		return a/2;
+        	}
         // TODO: complete this...
     }
 
@@ -69,6 +77,21 @@ public class Calculator
     protected static int calculateThreeTokens(String[] tokens)
             throws ArithmeticException, NumberFormatException, CalculatorException
     {
+    	int a = Integer.parseInt(tokens[0]);
+    	int b = Integer.parseInt(tokens[2]);
+    		if(tokens[1].equals("+"))
+    		{
+    			return a+b;
+    		}
+    		else if(tokens[1].equals("-"))
+    		{
+    			return a-b;
+    		}
+    		else
+    		{
+    			return a*b;
+    		}
+    	
         // TODO: complete this...
     }
 
@@ -105,6 +128,19 @@ public class Calculator
         // Condition on the number of tokens (number of strings in user input separated by spaces)
         switch(tokens.length)
         {
+        case 1: 
+        	if(tokens[0].equalsIgnoreCase("quit"))
+        	{
+        		return Integer.MIN_VALUE;
+        	}
+        	else
+        	{
+        		
+        	}
+        case 2:
+        	return calculateTwoTokens(tokens);
+        case 3:
+        	return calculateThreeTokens(tokens);
             // TODO: complete this...
         }
 
@@ -138,11 +174,36 @@ public class Calculator
      * (4) "Input number cannot be parsed to an int. Please try again." - a NumberFormat has been caught.
      * (5) "Calculator Exception, message is: %s", where %s is the message of a
      * CalculatorException - a CalculatorException has been caught.
+     * @throws CalculatorException 
+     * @throws NumberFormatException 
      */
-    public static String parseAndExecute(String input)
+    public static String parseAndExecute(String input) throws NumberFormatException, CalculatorException
     {
+    	String[] inputArray= input.split(" ");
+    	int val=execute(inputArray);
+    		if(val==Integer.MIN_VALUE)
+    		{
+    			return "quit";
+    		}
+    		else if(val==2)
+    		{
+    			return String.format("The result is: %d",val);
+    		}
+    		else if(val==3)
+    		{
+    			return "Attempted to divide by 0. Please try again.";
+    		}
+    		else if(val==4)
+    		{
+    			return "Input number cannot be parsed to an int. Please try again.";
+    		}
+    		else if(val==5)
+    		{
+    			return String.format("Calculator Exception, message is: %s", CalculatorException());
+    		}
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
+		return input;
     }
 }
