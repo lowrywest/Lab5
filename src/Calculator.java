@@ -33,33 +33,24 @@ public class Calculator
      * @throws CalculatorException Thrown if the first token is not a valid command ("negate" or "halve")
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
-    {
-    	try
-    	{
-    		String temp=tokens[0];
-    		int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
-    		
-    	}
-    	catch(NumberFormatException e)
-    	{
-    		System.out.println("Input number cannot be parsed to an int . Please try again ");
-    	}
-    	catch(CalculatorException e)
-    	{
-    		System.out.println("Calculator Exception , message is : Illegal Command ");
-    	}
-    	finally
-    	{
-    		if(tokens[0].equalsIgnoreCase("negate"))
+    {   
+        	if(!tokens[0].equals("negate")||!tokens[0].equals("halve"))
         	{
-        		return -a;
+        		throw new CalculatorException("Illegal Command");
         	}
-        	else
-        	{
-        		return a/2;
-        	}
+        	
+        int a = Integer.parseInt(tokens[1]); 
+    	// Throws NumberFormatException if the second token is not an int value.
+    	if(tokens[0].equalsIgnoreCase("negate"))
+    	{
+    		return -a;
     	}
-    	
+    	else
+    	{
+    		return a/2;
+    	}
+        
+        	
         	
         // TODO: complete this...
     }
