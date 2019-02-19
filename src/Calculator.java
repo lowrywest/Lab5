@@ -100,32 +100,59 @@ public class Calculator
     protected static int calculateThreeTokens(String[] tokens)
             throws ArithmeticException, NumberFormatException, CalculatorException
     {
-    	int a = Integer.parseInt(tokens[0]);
-    	int b = Integer.parseInt(tokens[2]);
-    	if(!tokens[1].equalsIgnoreCase("+")||!tokens[1].equalsIgnoreCase("-")||!tokens[1].equalsIgnoreCase("/"))
-       	{
-    		return 0;
+    	try
+        {
+        	int e = Integer.parseInt(tokens[0]);
+        	int x=  Integer.parseInt(tokens[2]);
         }
-    	if(tokens[1].equals("/")&&b==0)
-    	{
-    		return 3;
-    	}
+        catch(NumberFormatException e)
+        {
+        	System.out.println("Input number cannot be parsed to an int . Please try again .");
+        	return Integer.MIN_VALUE+1;
+        }
     	
-    	
-    		if(tokens[1].equals("+"))
-    		{
-    			return a+b;
-    		}
-    		else if(tokens[1].equals("-"))
-    		{
-    			return a-b;
-    		}
-    		else
-    		{
-    			return a*b;
-    		}
-    	
+    	int a = Integer.parseInt(tokens[0]);
+		int b = Integer.parseInt(tokens[2]);
+		int ans= 0;
+		try
+		{
+			ans =a/b;
+		}
+		catch(ArithmeticException e)
+		{
+			System.out.println("Attempted to divide by 0. Please try again.");
+			return Integer.MIN_VALUE+1;
+		}
+		try
+		{
+			if(tokens[1].equals("+"))
+			{
+				ans=a+b;
+			}
+			else if(tokens[1].equals("-"))
+			{
+				ans =a-b;
+			}
+			else if(tokens[1].equals("/"))
+			{
+				ans= a/b;
+			}	
+			else 
+			{
+				throw new CalculatorException("Illegal Command");
+			}
+		}
+		catch(CalculatorException e)
+		{
+			System.out.println("Calculator Exception , message is : Illegal Command");
+			return Integer.MIN_VALUE+1;
+		}
+		catch(Exception e)
+		{
+			
+		}
         // TODO: complete this...
+		return ans;
     }
 
     /**
