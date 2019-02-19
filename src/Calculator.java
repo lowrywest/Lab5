@@ -40,7 +40,7 @@ public class Calculator
         }
         catch(NumberFormatException e)
         {
-        	System.out.println("Input number cannot be parsed to an int . Please try again .");
+        	System.out.print("Input number cannot be parsed to an int . Please try again .");
         	return Integer.MIN_VALUE+1;
         }
         int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
@@ -62,7 +62,7 @@ public class Calculator
         }
         catch(CalculatorException e)
         {
-        	System.out.println("Calculator Exception , message is : Illegal Command");
+        	System.out.print("Calculator Exception , message is : Illegal Command");
         }
         return ans;
         // TODO: complete this...
@@ -107,7 +107,7 @@ public class Calculator
         }
         catch(NumberFormatException e)
         {
-        	System.out.println("Input number cannot be parsed to an int . Please try again .");
+        	System.out.print("Input number cannot be parsed to an int . Please try again .");
         	return Integer.MIN_VALUE+1;
         }
     	
@@ -120,7 +120,7 @@ public class Calculator
 		}
 		catch(ArithmeticException e)
 		{
-			System.out.println("Attempted to divide by 0. Please try again.");
+			System.out.print("Attempted to divide by 0. Please try again.");
 			return Integer.MIN_VALUE+1;
 		}
 		try
@@ -144,7 +144,7 @@ public class Calculator
 		}
 		catch(CalculatorException e)
 		{
-			System.out.println("Calculator Exception , message is : Illegal Command");
+			System.out.print("Calculator Exception , message is : Illegal Command");
 			return Integer.MIN_VALUE+1;
 		}
 		catch(Exception e)
@@ -208,7 +208,7 @@ public class Calculator
         		}
         		catch(CalculatorException e)
         		{
-        			System.out.println("Calculator Exception , message is : Illegal Command");
+        			System.out.print("Calculator Exception , message is : Illegal Command");
         			break;
         		}
         case 2:
@@ -261,38 +261,22 @@ public class Calculator
     public static String parseAndExecute(String input) throws NumberFormatException, CalculatorException
     {
     	String[] inputArray= input.split(" ");
-    	int val=execute(inputArray);
+    	int val = execute(inputArray);
     		if(val==Integer.MIN_VALUE)
     		{
     			return "quit";
     		}
-    		else if(val==0)
+    		else if(val!=Integer.MIN_VALUE+1)
     		{
-    			return  "Calculator Exception, message is: Illegal Command";
+    			return String.format("The result is: %d", val);
     		}
-    		else if (val ==1)
+    		else
     		{
-    			return "Calculator Exception, message is: Illegal Token Length";
+			return null;
     		}
-    		else if(val==2)
-    		{
-    			return String.format("The result is: %d",val);
-    		}
-    		else if(val==3)
-    		{
-    			return "Attempted to divide by 0. Please try again.";
-    		}
-    		else if(val==4)
-    		{
-    			return "Input number cannot be parsed to an int. Please try again.";
-    		}
-    		//else if(val==5)
-    		//{
-    		//return String.format("Calculator Exception, message is: %s", );
-    		//}
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
-		return input;
+	
     }
 }
