@@ -34,10 +34,10 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {   
-        	if(!tokens[0].equals("negate")||!tokens[0].equals("halve"))
-        	{
-        		throw new CalculatorException("Illegal Command");
-        	}
+       	if(!tokens[0].equalsIgnoreCase("negate")||!tokens[0].equalsIgnoreCase("halve"))
+       	{
+       		throw new CalculatorException("Illegal Command");
+        }
         	
         int a = Integer.parseInt(tokens[1]); 
     	// Throws NumberFormatException if the second token is not an int value.
@@ -88,6 +88,12 @@ public class Calculator
     {
     	int a = Integer.parseInt(tokens[0]);
     	int b = Integer.parseInt(tokens[2]);
+    	if(!tokens[1].equalsIgnoreCase("+")||!tokens[1].equalsIgnoreCase("-")||!tokens[1].equalsIgnoreCase("/"))
+       	{
+       		throw new CalculatorException("Illegal Command");
+        }
+    	
+    	
     		if(tokens[1].equals("+"))
     		{
     			return a+b;
