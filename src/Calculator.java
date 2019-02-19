@@ -36,11 +36,13 @@ public class Calculator
     {   
     	try
         {
-        	int e = Integer.parseInt(tokens[1]);
+    		if(Integer.parseInt(tokens[1])!=(int)Integer.parseInt(tokens[1]))
+    		{
+        	 throw new NumberFormatException("Input number cannot be parsed to an int. Please try again.");
+    		}
         }
         catch(NumberFormatException e)
         {
-        	System.out.print("Input number cannot be parsed to an int . Please try again .");
         	return Integer.MIN_VALUE+1;
         }
         int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
@@ -62,7 +64,8 @@ public class Calculator
         }
         catch(CalculatorException e)
         {
-        	System.out.print("Calculator Exception , message is : Illegal Command");
+        	
+        	return Integer.MIN_VALUE+2;
         }
         return ans;
         // TODO: complete this...
@@ -102,12 +105,12 @@ public class Calculator
     {
     	try
         {
-        	int e = Integer.parseInt(tokens[0]);
-        	int x=  Integer.parseInt(tokens[2]);
+        	 Integer.parseInt(tokens[0]);
+        	 Integer.parseInt(tokens[2]);
         }
         catch(NumberFormatException e)
         {
-        	System.out.print("Input number cannot be parsed to an int . Please try again.");
+        	
         	return Integer.MIN_VALUE+1;
         }
     	
@@ -118,14 +121,14 @@ public class Calculator
 		{
 			if(tokens[1].equals("/") && b==0)
 			{
-				throw new ArithmeticException("");
+				throw new ArithmeticException("Attempted to divide by 0. Please try again.");
 			}
 			
 		}
 		catch(ArithmeticException e)
 		{
-			System.out.print("Attempted to divide by 0. Please try again.");
-			return Integer.MIN_VALUE+1;
+			
+			return Integer.MIN_VALUE+4;
 		}
 		try
 		{
@@ -143,13 +146,13 @@ public class Calculator
 			}	
 			else 
 			{
-				throw new CalculatorException("Calculator Exception , message is : Illegal Command");
+				throw new CalculatorException("Illegal Command");
 			}
 		}
 		catch(CalculatorException e)
 		{
-			System.out.print("Calculator Exception , message is : Illegal Command");
-			return Integer.MIN_VALUE+1;
+			
+			return Integer.MIN_VALUE+2;
 		}
 		
         // TODO: complete this...
@@ -196,13 +199,13 @@ public class Calculator
         	{
         	if(tokens.length==0)
         	{
-        		throw new CalculatorException("Calculator Exception , message is : Illegal Token Length");
+        		throw new CalculatorException("Illegal Token Length");
         	}
         	}
         	catch(CalculatorException e)
         	{
-        		System.out.print("Calculator Exception , message is : Illegal Token Length");
-        	return Integer.MIN_VALUE+1;
+        		
+        	return Integer.MIN_VALUE+3;
         	}
         	
         case 1:
@@ -221,22 +224,23 @@ public class Calculator
         		}
         		catch(CalculatorException e)
         		{
-        			System.out.print("Calculator Exception , message is : Illegal Command");
-        			return Integer.MIN_VALUE+1;
+        			
+        			return Integer.MIN_VALUE+2;
         			
         		}
         case 2:
         	temp = calculateTwoTokens(tokens); 
-        	break;
+        	return temp;
         case 3:
         	temp = calculateThreeTokens(tokens);
-        	break;
+        	return temp;
         default:
         {
-        	System.out.print("Calculator Exception , message is : Illegal Token Length");
+        	temp=Integer.MIN_VALUE+3;
         	throw new CalculatorException("Illegal Token Length");
-        }
+        	
             // TODO: complete this...
+        }
         }
 		return temp;
 
@@ -281,13 +285,29 @@ public class Calculator
     		{
     			return "quit";
     		}
-    		else if(val!=Integer.MIN_VALUE+1)
+    		else if(val==Integer.MIN_VALUE+1)
     		{
-    			return String.format("The result is: %d", val);
+    			System.out.print("Input number cannot be parsed to an int. Please try again.");
+    			return "Input number cannot be parsed to an int. Please try again.";
+    		}
+    		else if(val==Integer.MIN_VALUE+2)
+    		{
+    			System.out.print("Calculator Exception , message is: Illegal Command");
+    			return "Calculator Exception, message is: Illegal Command";
+    		}
+    		else if(val==Integer.MIN_VALUE+3)
+    		{
+    			System.out.print("Calculator Exception , message is: Illegal Token Length");
+    			return "Calculator Exception , message is: Illegal Token Length";
+    		}
+    		else if(val==Integer.MAX_VALUE+4)
+    		{
+    			System.out.print("Attempted to divide by 0. Please try again.");
+    			return "Attempted to divide by 0. Please try again.";
     		}
     		else
     		{
-			return "";
+			 return String.format("The result is: %d", val);
     		}
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
