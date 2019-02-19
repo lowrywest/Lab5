@@ -284,7 +284,7 @@ public class CalculatorTest {
 	public void parseAndExecuteTestDivideByZero() throws AssertException, NumberFormatException, CalculatorException {
 		// TODO: complete this test...
 		String result = Calculator.parseAndExecute("10 / 0");
-		Assert.assertEquals("Attempted to divide by 0. Please try again . ", result);
+		Assert.assertEquals("Attempted to divide by 0. Please try again.", result);
 	}
 	
 
@@ -297,7 +297,7 @@ public class CalculatorTest {
 	public void parseAndExecuteTestInvalidNumber() throws AssertException, NumberFormatException, CalculatorException {
 		// TODO: complete this test...
 		String result = Calculator.parseAndExecute("10 / foo");
-		Assert.assertEquals("Calculator Exception , message is : Illegal Command ", result);
+		Assert.assertEquals("Calculator Exception , message is : Illegal Command", result);
 	}
 
 	/**
