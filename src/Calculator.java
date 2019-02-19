@@ -34,25 +34,39 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {   
-       	if(!tokens[0].equalsIgnoreCase("negate")||!tokens[0].equalsIgnoreCase("halve"))
-       	{
-       		throw new CalculatorException("Illegal Command");
+    	try
+        {
+        	int e = Integer.parseInt(tokens[1]);
         }
-        	
-        int a = Integer.parseInt(tokens[1]); 
-    	// Throws NumberFormatException if the second token is not an int value.
-    	if(tokens[0].equalsIgnoreCase("negate"))
-    	{
-    		return -a;
-    	}
-    	else
-    	{
-    		return a/2;
-    	}
-        
-        	
-        	
+        catch(NumberFormatException e)
+        {
+        	System.out.println("Input number cannot be parsed to an int . Please try again .");
+        	return Integer.MIN_VALUE+1;
+        }
+        int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
+        int ans=0;
+        try
+        {
+        	if(tokens[0].equalsIgnoreCase("negate"))
+        	{
+        		ans= -a;
+        	}
+        	else if(tokens[0].equalsIgnoreCase("halve"))
+        	{
+        		ans= a/2;
+        	}
+        	else
+        	{
+        		throw new CalculatorException("Illegal Command");
+        	}
+        }
+        catch(CalculatorException e)
+        {
+        	System.out.println("Calculator Exception , message is : Illegal Command");
+        }
+        return ans;
         // TODO: complete this...
+        
     }
 
     /**
@@ -90,8 +104,12 @@ public class Calculator
     	int b = Integer.parseInt(tokens[2]);
     	if(!tokens[1].equalsIgnoreCase("+")||!tokens[1].equalsIgnoreCase("-")||!tokens[1].equalsIgnoreCase("/"))
        	{
-       		throw new CalculatorException("Illegal Command");
+    		return 0;
         }
+    	if(tokens[1].equals("/")&&b==0)
+    	{
+    		return 3;
+    	}
     	
     	
     		if(tokens[1].equals("+"))
@@ -141,24 +159,35 @@ public class Calculator
     protected static int execute(String[] tokens) throws NumberFormatException, CalculatorException
     {
         // Condition on the number of tokens (number of strings in user input separated by spaces)
-        switch(tokens.length)
-        {
-        case 1: 
-        	if(tokens[0].equalsIgnoreCase("quit"))
+    	if(tokens.length==0)
+    	{
+    		return 1;
+    	}
+    	else if(tokens.length==1)
+    	{
+    		if(tokens[0].equalsIgnoreCase("quit"))
         	{
         		return Integer.MIN_VALUE;
         	}
         	else
         	{
-        		
+        		return 1;
         	}
-        case 2:
-        	return calculateTwoTokens(tokens);
-        case 3:
-        	return calculateThreeTokens(tokens);
+    	}
+    	else if(tokens.length==2)
+    	{
+    		return calculateTwoTokens(tokens);
+    	
+    	}
+    	else if(tokens.length==3)
+    	{
+    		return calculateThreeTokens(tokens);
+    	}
+    	else
+    	{
+    		return 1;
+    	}
             // TODO: complete this...
-        }
-
     }
 
     /**
@@ -200,6 +229,14 @@ public class Calculator
     		{
     			return "quit";
     		}
+    		else if(val==0)
+    		{
+    			return  "Calculator Exception, message is: Illegal Command";
+    		}
+    		else if (val ==1)
+    		{
+    			return "Calculator Exception, message is: Illegal Token Length";
+    		}
     		else if(val==2)
     		{
     			return String.format("The result is: %d",val);
@@ -212,10 +249,10 @@ public class Calculator
     		{
     			return "Input number cannot be parsed to an int. Please try again.";
     		}
-    		else if(val==5)
-    		{
-    			return String.format("Calculator Exception, message is: %s", CalculatorException());
-    		}
+    		//else if(val==5)
+    		//{
+    		//return String.format("Calculator Exception, message is: %s", );
+    		//}
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
